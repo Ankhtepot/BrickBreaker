@@ -10,7 +10,6 @@ public class Ball : MonoBehaviour {
     [SerializeField] Paddle paddle1;
     [SerializeField] public float launchPower = 10f;
     [Header("Sounds setup")]
-    [SerializeField] AudioClip[] bounceSounds;
     [SerializeField] AudioClip unbreakableSound;
     [SerializeField] AudioClip paddleSound;
     [SerializeField] AudioClip loseSound;

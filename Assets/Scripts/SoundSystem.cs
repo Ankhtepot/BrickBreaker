@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#pragma warning disable 0414
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
@@ -11,16 +13,16 @@ public class SoundSystem : MonoBehaviour {
     [SerializeField] float musicVolume = 0.1f;
     [SerializeField] bool muted = false;
     [SerializeField] AudioClip MenuMusic;
-    [Range(0, 1)] [SerializeField] float MenuMusicVolume = 0.1f;
+    //[Range(0, 1)] [SerializeField] float MenuMusicVolume = 0.1f;
     [SerializeField] AudioClip GameMusic;
-    [Range(0, 1)] [SerializeField] float GameMusicVolume = 0.1f;
+    //[Range(0, 1)] [SerializeField] float GameMusicVolume = 0.1f;
     [Header("Sound Lists")]
     [SerializeField] AudioClip[] BrickSounds;
     [SerializeField] AudioClip[] AppleSounds;
     [SerializeField] AudioClip[] BossSounds;
 
     AudioSource audioSource;
-    AudioClip playedMusic;
+    [SerializeField] AudioClip playedMusic;
     // static SoundSystem instance = null;
 
     public enum PlayListID { Brick, Apple, Boss }
@@ -100,17 +102,18 @@ public class SoundSystem : MonoBehaviour {
 
     public void PlayMenuMusic() {
         PlayMusicClip(MenuMusic);
-        musicVolume = MenuMusicVolume;
+        //musicVolume = MenuMusicVolume;
     }
 
     public void PlayGameMusic() {
         PlayMusicClip(GameMusic);
-        musicVolume = GameMusicVolume;
+        //musicVolume = GameMusicVolume;
     }
 
     private void PlayMusicClip(AudioClip musicClip) {
         if (playedMusic != musicClip) {
             playedMusic = musicClip;
+            audioSource.clip = musicClip;
             audioSource.Play();
         }
     }

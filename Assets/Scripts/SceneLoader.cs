@@ -1,4 +1,7 @@
-﻿using System;
+﻿#pragma warning disable 0414
+
+using Assets.Classes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +34,7 @@ public class SceneLoader : MonoBehaviour {
         //    instance = this;
         //    DontDestroyOnLoad(this);
         //}
-        splashScreen = FindObjectOfType<SplashScreen>().GetComponent<Animator>();
+        if (splashScreen) splashScreen = FindObjectOfType<SplashScreen>().GetComponent<Animator>();
         SFXPlayer = FindObjectOfType<SoundSystem>();
         options = FindObjectOfType<Options>();
     }
@@ -88,14 +91,15 @@ public class SceneLoader : MonoBehaviour {
 
     void OnSceneLoad(Scene loadedScene, LoadSceneMode mode) {
         //print("SceneLoader: scene buildIndex: " + SceneManager.GetActiveScene().buildIndex + " loaded. SceneLoader Hash: " + this.GetHashCode());
-        ChooseMusic();
+        ChooseMusicByScene();
         RunSplashScreen();
     }
 
-    private void ChooseMusic() {
-        if (SFXPlayer)
+    private void ChooseMusicByScene() {
+        if (SFXPlayer) {
             if (isCurrentSceneLevel()) SFXPlayer.PlayGameMusic();
             else SFXPlayer.PlayMenuMusic();
+        } else print("SceneLoader/ChooseMusicByScene: no SFX player found");
     }
 
     private void RunSplashScreen() {
@@ -105,7 +109,7 @@ public class SceneLoader : MonoBehaviour {
             if (options.showHintBoards && isCurrentSceneLevel()) {
                 //print("SceneLoader/OnSceneLoad: before CORoutine");
                 StartCoroutine(DelaySplScrFade());
-            } else splashScreen.SetTrigger("Fade");
+            } else splashScreen.SetTrigger(triggers.FADE);
         } else print("SceneLoader/OnSceneLoad: No splashScreen found");
     }
 

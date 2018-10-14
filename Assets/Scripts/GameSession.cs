@@ -1,6 +1,8 @@
-﻿#pragma warning disable 0168
+﻿#pragma warning disable 0414
 
+using Assets.Classes;
 using Assets.Interfaces;
+using Classes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,7 +36,7 @@ public class GameSession : MonoBehaviour {
     bool brickCheckCDIsOff = true;
 
     private void Start() {
-        GameObject goLiveText = GameObject.Find("LivesText");
+        GameObject goLiveText = GameObject.Find(gameobjects.LIVESTEXT);
         LivesText = goLiveText.GetComponent<TextMeshProUGUI>();
         SceneManager.sceneLoaded += OnSceneLoadGameSession;
         options = FindObjectOfType<Options>();
@@ -65,11 +67,11 @@ public class GameSession : MonoBehaviour {
 
     private void ScreenShake() {
 
-        if (Input.GetButtonDown("Jump")) {
+        if (Input.GetButtonDown(triggers.JUMP)) {
             //print("Jump button pressed");
             Animator shakeAnimation = FindObjectOfType<Camera>().GetComponent<Animator>();
             if (shakeAnimation) {
-                shakeAnimation.SetTrigger("ShakeCamera");
+                shakeAnimation.SetTrigger(triggers.SHAKECAMERA);
                 foreach (Ball ball in FindObjectsOfType<Ball>()) {
                     ball.GetComponent<Rigidbody2D>().velocity +=
                         new Vector2(UnityEngine.Random.Range(xMin, xMax),
@@ -101,7 +103,7 @@ public class GameSession : MonoBehaviour {
     }
 
     private void CheckBrickCount() {
-        if (CountBricks() <= 0) {
+        if (CountBricks() <= 0 && sceneLoader.isCurrentSceneLevel()) {
             //Debug.Log("All bricks gone, loading next screen");
             IBoss boss = FindObjectOfType<Boss>() as IBoss;
             if (boss != null) {
@@ -124,7 +126,7 @@ public class GameSession : MonoBehaviour {
         //print("In count bricks");
         int counter = 0;
         foreach (Brick brick in FindObjectsOfType<Brick>()) {
-            if (brick.tag == "Brick") counter++;
+            if (brick.tag == tags.BRICK) counter++;
         }
         brickCount = counter;
         //print("Brick counter: " + counter);
@@ -135,7 +137,7 @@ public class GameSession : MonoBehaviour {
         Lives++;
         UpdateLivesText();
         Animator paddle = FindObjectOfType<LifeAdjustment>().GetComponent<Animator>();
-        if (paddle) paddle.SetTrigger("Plus");
+        if (paddle) paddle.SetTrigger(triggers.PLUS);
     }
 
     public void RetractLife() {
@@ -144,7 +146,7 @@ public class GameSession : MonoBehaviour {
         } else {
             Lives--;
             Animator paddle = FindObjectOfType<LifeAdjustment>().GetComponent<Animator>();
-            if (paddle) paddle.SetTrigger("Minus");
+            if (paddle) paddle.SetTrigger(triggers.MINUS);
             UpdateLivesText();
         }
         //Debug.Log("GameSession: RetractLife: afterRetract, Lives = " + Lives);

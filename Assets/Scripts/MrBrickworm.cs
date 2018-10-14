@@ -1,4 +1,6 @@
-﻿using Assets.Classes;
+﻿#pragma warning disable 0414
+
+using Assets.Classes;
 using Assets.Interfaces;
 using Classes;
 using System;
@@ -39,6 +41,15 @@ namespace Assets.Scripts {
         [SerializeField] Transform targetPosition = null;
 
         public override void Dying() {
+            isResting = true;
+            isMoving = false;
+            MrBAnimator.SetTrigger(triggers.DYING);
+            StartCoroutine(OnDying());
+        }
+
+        IEnumerator OnDying() {
+            yield return new WaitForSeconds(5f);
+            print("OnDieing completed");
             OnDeath();
         }
 
@@ -47,6 +58,7 @@ namespace Assets.Scripts {
             GetTargetPosition();
             HealthPointsCurrent = HealthPointsBase;
             MrBAnimator = GameObject.Find(gameobjects.MRBRICKWORM).GetComponent<Animator>();
+            HealthBar = GameObject.Find(gameobjects.MRBHEALTHBAR).GetComponent<ProgressBar>();
         }
 
         private void Update() {
@@ -56,8 +68,7 @@ namespace Assets.Scripts {
         private void ResolveMoving() {
             if (!ArrivedAtPoint() && arrived && !isResting) {
                 //print("should be moving, difference between current and target is: x: " + (PositionHandler.transform.position.x - targetPosition.position.x) + " y: " + (PositionHandler.transform.position.y - targetPosition.position.y));
-                PositionHandler.transform.position = Vector2.MoveTowards(PositionHandler.transform.position, targetPosition.position, MovementSpeed * Time.deltaTime);
-                //transform.position += new Vector3(0.2f, 0.2f); 
+                if(PositionHandler) PositionHandler.transform.position = Vector2.MoveTowards(PositionHandler.transform.position, targetPosition.position, MovementSpeed * Time.deltaTime);
             } else if(ArrivedAtPoint() && !isResting) {
                 //print("MrBrickworm/ResolveMoving: Reached targetPosition");
                 isResting = true;
@@ -66,9 +77,11 @@ namespace Assets.Scripts {
         }
 
         private bool ArrivedAtPoint() {
-            if ((PositionHandler.transform.position.x - targetPosition.position.x) <= 0.01f &&
-                +(PositionHandler.transform.position.y - targetPosition.position.y) <= 0.01f)
-                return true;
+            if (PositionHandler) {
+                if ((PositionHandler.transform.position.x - targetPosition.position.x) <= 0.01f &&
+                        +(PositionHandler.transform.position.y - targetPosition.position.y) <= 0.01f)
+                    return true; 
+            } else print("MrBrickworm/ArrivedAtPoint: PositionHandler not found");
             return false;
         }
 
@@ -130,12 +143,15 @@ namespace Assets.Scripts {
 
         public override void OnDeath() {
             print("Boss \"died\"");
-            StartCoroutine(DisableHealthBar());
+            StartCoroutine(AfterDeathSequence());
         }
 
-        private IEnumerator DisableHealthBar() {
+        private IEnumerator AfterDeathSequence() {
             yield return new WaitForSeconds(DelayHBarDisable);
             HealthBar.DisableVisuals();
+            SceneLoader SL = FindObjectOfType<SceneLoader>();
+            if (SL) SL.LoadScene();
+            else print("MrBrickworm/AterDeathSequence: no SceneLoader found");
         }
 
         public override void StartEncounter() {
