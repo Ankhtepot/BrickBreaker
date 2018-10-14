@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Brick
+  - Ball
+  - Paddle
+  - Pickup
+  - Unbreakable
+  - Corrector
+  - Wall
+  - LoseCollider
+  - Projectile
+  - Fireball
+  - DontMute
+  - CheckBox
+  - Boss
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - MagicShot
+  - Ball
+  - Unbreakable
+  - Obstacle
+  - SplashScreenSL
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Front
+    uniqueID: 3878309847
+    locked: 0
+  - name: Background
+    uniqueID: 817406469
+    locked: 0
+  - name: Upper
+    uniqueID: 4276011567
+    locked: 0
+  - name: SplashScreen
+    uniqueID: 3274557827
+    locked: 0

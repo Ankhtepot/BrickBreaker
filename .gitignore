@@ -1,0 +1,6 @@
+# ignore an entire directory
+/Library/
+/Temp/
+/.git/
+
+Assets/ProgressBars #4/Source.psd
