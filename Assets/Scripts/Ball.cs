@@ -80,7 +80,7 @@ public class Ball : MonoBehaviour {
         String collisionTag = collision.gameObject.tag;
         CollisionWithPaddle(collision, collisionTag);
         PlaySFX(collision.gameObject);
-        TweakVelocity();
+        //TweakVelocity();
     }
 
     private void CollisionWithPaddle(Collision2D collision, string collisionTag) {

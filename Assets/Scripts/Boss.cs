@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Boss : MonoBehaviour, IBoss, IPlayList {
-    public float movingAnimationSpeed;
+    [Range(1f,10f)]public float movingAnimationSpeed;
     public float attackSpeed;
     public float attackCDBase;
     public float attackCDVariation;

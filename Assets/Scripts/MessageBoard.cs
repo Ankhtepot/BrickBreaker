@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Classes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,7 +15,7 @@ public class MessageBoard : MonoBehaviour {
     [SerializeField] bool waitForDismiss = false;
     [SerializeField] float timeBeforeDismiss = 1.5f;
     [SerializeField] DismmissType dismmissType;
-    
+    [SerializeField] bool waitsForDismissal = false;
 
     //chached states
     Animator animator;
@@ -37,11 +38,14 @@ public class MessageBoard : MonoBehaviour {
     }
 
     private void Update() {
-        if (dismmissType == DismmissType.OnMouseClick && Input.GetMouseButtonDown(0)) DismissBoard();
+        if (dismmissType == DismmissType.OnMouseClick && Input.GetMouseButtonDown(0) && waitsForDismissal) {
+            print("MessageBoard/Update: LMB presset, Dismissing Board");
+            DismissBoard();
+        }
     }
 
     private void SwoopBoardIn() {
-        GetComponent<Animator>().SetTrigger("Activate");
+        GetComponent<Animator>().SetTrigger(triggers.ACTIVATE);
     }
 
     private IEnumerator DelayDismiss() {
@@ -54,7 +58,8 @@ public class MessageBoard : MonoBehaviour {
     }
 
     private void Dismiss() {
-        if (animator) animator.SetTrigger("Dismiss");
+        waitsForDismissal = false;
+        if (animator) animator.SetTrigger(triggers.DISMISS);
     }
 
     void OnSceneLoad(Scene loadedScene, LoadSceneMode mode) {
@@ -65,4 +70,7 @@ public class MessageBoard : MonoBehaviour {
         SceneManager.sceneLoaded -= OnSceneLoad;
     }
 
+    public void SetWaitForDismissalOn() {
+        waitsForDismissal = true;
+    }
 }

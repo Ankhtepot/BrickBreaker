@@ -10,6 +10,8 @@ public class ProgressBar : MonoBehaviour {
 	
 	public void UpdateBar(float value) {
         bar.fillAmount += value/100;
+        if (bar.fillAmount >= 100) bar.fillAmount = 100;
+        if (bar.fillAmount <= 0) bar.fillAmount = 0;
     }
 
     public void EnableVisuals() {

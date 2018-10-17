@@ -14,5 +14,12 @@ namespace Assets.Classes {
         public const String PLUS = "Plus";
         public const String SHAKECAMERA = "ShakeCamera";
         public const String JUMP = "Jump";
+        public const String MOVELEGS = "MoveLegs";
+        public const String LEGWIGGLESPEED = "LegWiggleSpeed";
+        public const String ACTIVATE = "Activate";
+        public const String DISMISS = "Dismiss";
+        public const String HIT = "Hit";
+        public const String ATTACKRIGHT = "AttackRight";
+        public const String ATTACKLEFT = "AttackLeft";
     }
 }

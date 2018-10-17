@@ -99,7 +99,7 @@ public class SceneLoader : MonoBehaviour {
         if (SFXPlayer) {
             if (isCurrentSceneLevel()) SFXPlayer.PlayGameMusic();
             else SFXPlayer.PlayMenuMusic();
-        } else print("SceneLoader/ChooseMusicByScene: no SFX player found");
+        } //else print("SceneLoader/ChooseMusicByScene: no SFX player found");
     }
 
     private void RunSplashScreen() {

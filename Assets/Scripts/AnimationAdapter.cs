@@ -26,4 +26,8 @@ public class AnimationAdapter : MonoBehaviour {
         print("Stopping animation");
         GetComponent<Animator>().StopPlayback();
     }
+
+    void TestLayer() {
+        print("AnimationAdapter/TestLayer: MoveLegs animation is running");
+    }
 }

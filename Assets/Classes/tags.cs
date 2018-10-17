@@ -12,6 +12,6 @@ namespace Classes {
         public const String CORRECTOR = "Corrector";
         public const String PADDLE = "Paddle";
         public const String UNBREAKABLE = "Unbreakable";
-        public const String WALL = "Wall";
+        public const String WALL = "Wall";        
     }
 }
