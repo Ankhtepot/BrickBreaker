@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoAtLeHeFireballPickup : BoAtLeHeGrowl {
+public class BoAtRiHeLifePickup : BoAtRiHeGrowl {
 
     [SerializeField] Pickup pickup;
     [SerializeField] ParticleSystem effect;
@@ -14,7 +14,7 @@ public class BoAtLeHeFireballPickup : BoAtLeHeGrowl {
 
     public override IEnumerator DelayGrowl() {
         if (effect) effect.Play();
-        else print("BoAtLeHeFireballPickup/DelayFireball: no effect found");
+        else print("BoAtRiHeLifePickup/DelayFireball: no effect found");
         yield return new WaitForSeconds(1f);
         if (SFXPlayer && AttackSound) SFXPlayer.PlayClipOnce(AttackSound);
         else {
@@ -25,6 +25,6 @@ public class BoAtLeHeFireballPickup : BoAtLeHeGrowl {
         if (pickup) {
             //Pickup spawnedPickup = 
             Instantiate(pickup, transform.position, Quaternion.identity);
-        } else print("BoAtLeHeFireballPickup/Activate: no pickup to instantiate found.");
+        } else print("BoAtRiHeLifePickup/Activate: no pickup to instantiate found.");
     }
 }

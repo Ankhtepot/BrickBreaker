@@ -65,6 +65,8 @@
     <Compile Include="Assets\BoAtLeHeGrowl.cs" />
     <Compile Include="Assets\BoAtNothing.cs" />
     <Compile Include="Assets\BoAtRiHeGrowl.cs" />
+    <Compile Include="Assets\BoAtRiHeHealing.cs" />
+    <Compile Include="Assets\BoAtRiHeLifePickup.cs" />
     <Compile Include="Assets\BossAttackManager.cs" />
     <Compile Include="Assets\Classes\BossAttack.cs" />
     <Compile Include="Assets\Classes\GameObjects.cs" />

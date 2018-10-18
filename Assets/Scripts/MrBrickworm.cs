@@ -144,9 +144,13 @@ namespace Assets.Scripts {
 
         private void HealthChange(String collisionTag) {
             float change = 0f;
-            print("MrBrickworm/HealthChange: collisionTag: " + collisionTag);
+            //print("MrBrickworm/HealthChange: collisionTag: " + collisionTag);
             if (collisionTag == tags.BALL) change = -DamageByBall;
             if (collisionTag == tags.FIREBALL) change = -DamageByFireball;
+            AdjustHealthAndHealthPB(change);
+        }
+
+        public void AdjustHealthAndHealthPB(float change) {
             ChangeHPValue((int)change);
             HealthBar.UpdateBar(healthChangeInPorcent(change));
             if (HealthPointsCurrent <= 0) Dying();

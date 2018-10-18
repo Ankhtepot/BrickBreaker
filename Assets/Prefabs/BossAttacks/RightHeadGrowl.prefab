@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1195952957932560}
+  m_RootGameObject: {fileID: 1895403658011484}
   m_IsPrefabAsset: 1
---- !u!1 &1195952957932560
+--- !u!1 &1895403658011484
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4640667830274432}
-  - component: {fileID: 114537523056938006}
+  - component: {fileID: 4785093799027078}
+  - component: {fileID: 114189999814714962}
   m_Layer: 0
-  m_Name: LeftHeadGrowlAttack
+  m_Name: RightHeadGrowl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4640667830274432
+--- !u!4 &4785093799027078
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1195952957932560}
+  m_GameObject: {fileID: 1895403658011484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7, y: 1.6199999, z: 0}
   m_LocalScale: {x: 0.22999999, y: 0.22999999, z: 0}
@@ -40,19 +40,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114537523056938006
+--- !u!114 &114189999814714962
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1195952957932560}
+  m_GameObject: {fileID: 1895403658011484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9102e939e5d70a247aa785171315f4f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 00d3ec8fd39818d45badc23f0de7344c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BossAnimator: {fileID: 0}
   Boss: {fileID: 0}
   SFXPlayer: {fileID: 0}
   AttackSound: {fileID: 8300000, guid: 6959a5d7c41cb4e418d9117c05d85937, type: 3}
-  nameOfAttack: BoAtLeHeGrowl
+  nameOfAttack: BoAtRiHeGrowl

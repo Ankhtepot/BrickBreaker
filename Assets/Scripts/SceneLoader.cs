@@ -103,7 +103,7 @@ public class SceneLoader : MonoBehaviour {
     }
 
     private void RunSplashScreen() {
-        if (!splashScreen) splashScreen = FindObjectOfType<SplashScreen>().GetComponent<Animator>();
+        //if (!splashScreen) splashScreen = FindObjectOfType<SplashScreen>().GetComponent<Animator>();
         if (!options) options = FindObjectOfType<Options>();
         if (splashScreen) {
             if (options.showHintBoards && isCurrentSceneLevel()) {

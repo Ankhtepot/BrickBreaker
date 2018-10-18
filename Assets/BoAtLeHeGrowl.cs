@@ -16,7 +16,7 @@ public class BoAtLeHeGrowl : BossAttack {
     [SerializeField] string nameOfAttack = "BoAtLeHeGrowl";
 
 
-    private void Start() {
+    public virtual void Start() {
         Boss = FindObjectOfType<MrBrickworm>();
         BossAnimator = FindObjectOfType<AnimationAdapter>().GetComponent<Animator>();
         SFXPlayer = FindObjectOfType<SoundSystem>();

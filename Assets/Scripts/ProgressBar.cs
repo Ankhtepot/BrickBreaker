@@ -5,13 +5,25 @@ using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour {
 
+    [SerializeField] float fillSpeed = 0.01f;
     [SerializeField] Image bar;
     [SerializeField] Image frame;
-	
-	public void UpdateBar(float value) {
-        bar.fillAmount += value/100;
-        if (bar.fillAmount >= 100) bar.fillAmount = 100;
-        if (bar.fillAmount <= 0) bar.fillAmount = 0;
+
+
+    [SerializeField] private float targetValue;
+
+    private void Start() {
+        targetValue = bar.fillAmount;
+    }
+
+    private void Update() {
+        bar.fillAmount += bar.fillAmount < targetValue ? fillSpeed : -fillSpeed;
+    }
+
+    public void UpdateBar(float value) {
+        targetValue += value/100;
+        if (targetValue >= 1) targetValue = 1;
+        if (targetValue <= 0) targetValue = 0;        
     }
 
     public void EnableVisuals() {
