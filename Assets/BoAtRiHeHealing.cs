@@ -20,6 +20,7 @@ public class BoAtRiHeHealing : BoAtRiHeGrowl {
             Boss.PlayGrowl();
             print("BoAtRiHeHealing/DelayGrowl: missing SoundSystem or AttackSound");
         }
+        print("Boss casts healing");
         Boss.AdjustHealthAndHealthPB(10f);
         //yield return new WaitForSeconds(0.5f);
         

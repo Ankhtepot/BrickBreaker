@@ -17,7 +17,8 @@ public class ProgressBar : MonoBehaviour {
     }
 
     private void Update() {
-        bar.fillAmount += bar.fillAmount < targetValue ? fillSpeed : -fillSpeed;
+        if(bar.fillAmount!=targetValue)
+            bar.fillAmount += bar.fillAmount < targetValue ? fillSpeed : -fillSpeed;
     }
 
     public void UpdateBar(float value) {

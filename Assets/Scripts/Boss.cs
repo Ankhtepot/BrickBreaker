@@ -8,7 +8,7 @@ public abstract class Boss : MonoBehaviour, IBoss, IPlayList {
     public float attackSpeed;
     public float attackCDBase;
     public float attackCDVariation;
-    [SerializeField] AudioClip SFXDyingSound;
+    [SerializeField] public AudioClip SFXDyingSound;
     
     //[HideInInspector]
     public SoundSystem SFXPlayer;

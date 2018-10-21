@@ -24,6 +24,7 @@ public class BoAtRiHeLifePickup : BoAtRiHeGrowl {
         yield return new WaitForSeconds(0.5f);
         if (pickup) {
             //Pickup spawnedPickup = 
+            print("Boss casts life pickup");
             Instantiate(pickup, transform.position, Quaternion.identity);
         } else print("BoAtRiHeLifePickup/Activate: no pickup to instantiate found.");
     }

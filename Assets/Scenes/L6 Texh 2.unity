@@ -424,7 +424,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1788937253829882, guid: 61e1f878987ed16409b05d3b9042af86, type: 2}
       propertyPath: m_Name
-      value: PhysicalBall (1)
+      value: PhysicalBall Right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61e1f878987ed16409b05d3b9042af86, type: 2}
@@ -664,6 +664,10 @@ Prefab:
     - target: {fileID: 4086906735413816, guid: 61e1f878987ed16409b05d3b9042af86, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1788937253829882, guid: 61e1f878987ed16409b05d3b9042af86, type: 2}
+      propertyPath: m_Name
+      value: PhysicalBall Left
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61e1f878987ed16409b05d3b9042af86, type: 2}

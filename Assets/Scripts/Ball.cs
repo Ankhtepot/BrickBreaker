@@ -67,7 +67,7 @@ public class Ball : MonoBehaviour {
         return transform.position - paddle1.transform.position;
     }
 
-    private void lockToPaddle() {
+    public void lockToPaddle() {
         transform.position = paddle1.transform.position + PaddleBallRelation;
     }
 
@@ -128,7 +128,7 @@ public class Ball : MonoBehaviour {
                             //print("Ball: PlaySFX: collision.gameObject is IPLayList class, PlayListID is: " + B.GetPlayListID().ToString());
                             SFXPlayer.PlayRandomSoundFromList(B.GetPlayListID());
                         } else {
-                            print("Ball/PlaySFX: failed getting PlayListID, playing BrickSounds");
+                            //print("Ball/PlaySFX: failed getting PlayListID, playing BrickSounds, after hitting object: " + objectOfCollision.name);
                             SFXPlayer.PlayRandomSoundFromList(SoundSystem.PlayListID.Brick);
                         }; break;
                     }

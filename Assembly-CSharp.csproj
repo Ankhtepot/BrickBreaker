@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BoAtLeHeAcid.cs" />
     <Compile Include="Assets\BoAtLeHeFireballPickup.cs" />
     <Compile Include="Assets\BoAtLeHeGrowl.cs" />
     <Compile Include="Assets\BoAtNothing.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Assets\BoAtRiHeLifePickup.cs" />
     <Compile Include="Assets\BossAttackManager.cs" />
     <Compile Include="Assets\Classes\BossAttack.cs" />
-    <Compile Include="Assets\Classes\GameObjects.cs" />
+    <Compile Include="Assets\Classes\gameobjects.cs" />
     <Compile Include="Assets\Classes\tags.cs" />
     <Compile Include="Assets\Classes\triggers.cs" />
     <Compile Include="Assets\Interfaces\IBoss.cs" />

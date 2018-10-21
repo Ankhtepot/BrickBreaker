@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class MrBBodypart : MonoBehaviour, IPlayList {
 
-    [SerializeField] IBoss Boss;
+    [SerializeField] MrBrickworm Boss;
     [SerializeField] ParticleSystem effect;
 
     private void Start() {
-        Boss = GetComponentInParent<IBoss>();
+        Boss = GetComponentInParent<MrBrickworm>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -22,5 +22,12 @@ public class MrBBodypart : MonoBehaviour, IPlayList {
 
     public SoundSystem.PlayListID GetPlayListID() {
         return SoundSystem.PlayListID.Boss;
+    }
+
+    private void OnDisable() {
+        if (effect && Boss && !Boss.isAlive) {
+            Boss.PlayExplosionSquish();
+            Instantiate(Boss.PSDisableEffect, transform.position, Quaternion.identity);
+        }
     }
 }

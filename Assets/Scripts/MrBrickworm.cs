@@ -13,7 +13,7 @@ using UnityEngine;
 namespace Assets.Scripts {
     public class MrBrickworm : Boss {
         [Header("1. Stats")]
-        [SerializeField] int HealthPointsBase = 100;
+        [SerializeField] int HealthPointsBase = 2;
         [SerializeField] int HealthPointsCurrent;
         [SerializeField] int DamageByBall = 1;
         [SerializeField] int DamageByFireball = 5;
@@ -23,11 +23,14 @@ namespace Assets.Scripts {
         [SerializeField] AudioClip SFXArriveSound;
         [SerializeField] AudioClip SFXSpellSound;
         [SerializeField] AudioClip SFXOpeningDoors;
+        [SerializeField] public AudioClip SFXExplosionSquishy;
         [SerializeField] SpriteRenderer opennedDoors;
         [SerializeField] ParticleSystem PSPlatform;
         [SerializeField] ParticleSystem PSOpennedDoors;
+        [SerializeField] public ParticleSystem PSDisableEffect;
         [SerializeField] Animator MrBAnimator;
         [SerializeField] ProgressBar HealthBar;
+        [SerializeField] GameSession gameSession;
         [Header("2. Movement props")]
         [SerializeField] GameObject PositionHandler;
         [SerializeField] MrBWaypoints Waypoints;
@@ -36,21 +39,24 @@ namespace Assets.Scripts {
         [SerializeField] float MovementSpeed = 0.1f;
 
         //cached vars
-        bool isMoving = false;
+        [SerializeField] public bool isAlive = true;
         [SerializeField] public bool arrived = false;
         [SerializeField] bool attackPhase = false;
         [SerializeField] Transform targetPosition = null;
 
         public override void Dying() {
-            attackPhase = true;
-            isMoving = false;
+            attackPhase = false;
+            isAlive = false;
             MrBAnimator.SetTrigger(triggers.DYING);
+            print("Dying: before coroutine");
             StartCoroutine(OnDying());
+            SFXPlayer.PlayClipOnce(SFXDyingSound);
         }
 
         IEnumerator OnDying() {
+            print("OnDying starts");
             yield return new WaitForSeconds(5f);
-            print("OnDieing completed");
+            print("OnDying completed");
             OnDeath();
         }
 
@@ -60,23 +66,29 @@ namespace Assets.Scripts {
             HealthPointsCurrent = HealthPointsBase;
             MrBAnimator = GameObject.Find(gameobjects.MRBRICKWORM).GetComponent<Animator>();
             HealthBar = GameObject.Find(gameobjects.MRBHEALTHBAR).GetComponent<ProgressBar>();
+            gameSession = FindObjectOfType<GameSession>();
         }
 
         private void Update() {
             ResolveMoving();
+
         }
 
         private void ResolveMoving() {
             MrBAnimator.SetFloat(triggers.LEGWIGGLESPEED, movingAnimationSpeed);
-            if (!ArrivedAtPoint() && arrived && !attackPhase) {
+            if (!ArrivedAtPoint() && arrived && !attackPhase && isAlive) {
                 MrBAnimator.SetBool(triggers.MOVELEGS, true);
                 //print("should be moving, difference between current and target is: x: " + (PositionHandler.transform.position.x - targetPosition.position.x) + " y: " + (PositionHandler.transform.position.y - targetPosition.position.y));
                 if(PositionHandler) PositionHandler.transform.position = Vector2.MoveTowards(PositionHandler.transform.position, targetPosition.position, MovementSpeed * Time.deltaTime);
-            } else if(ArrivedAtPoint() && !attackPhase && arrived) {
+            } else if(ArrivedAtPoint() && !attackPhase && arrived && isAlive) {
                 //print("MrBrickworm/ResolveMoving: Reached targetPosition");
                 MrBAnimator.SetBool(triggers.MOVELEGS, false);
                 StartCoroutine(AttackPhase());
+            } else if(!isAlive) {
+                MrBAnimator.SetFloat(triggers.LEGWIGGLESPEED, 10f);
+                MrBAnimator.SetTrigger(triggers.MOVELEGS);
             }
+
         }
 
         private bool ArrivedAtPoint() {
@@ -95,18 +107,16 @@ namespace Assets.Scripts {
 
         IEnumerator AttackPhase() {
             attackPhase = true;
-            isMoving = false;
             if (attackManager) attackManager.performAttack();
             else print("MrBrickworm/AttackPhase: missing attackManager");
             yield return new WaitForSeconds(RestingPeriod);
             GetTargetPosition();
             attackPhase = false;
-            isMoving = true;
         }
 
         private void PerformAttack() {
             //MrBAnimator.SetTrigger("AttackLeft");
-            MrBAnimator.SetTrigger("AttackRight");
+            MrBAnimator.SetTrigger(triggers.ATTACKRIGHT);
         }
 
         public override void OnArrival() {
@@ -118,6 +128,7 @@ namespace Assets.Scripts {
         }
 
         IEnumerator Arrive() {
+            gameSession.LockBallAndPaddle(true);
             yield return new WaitForSeconds(0.5f);
             SFXPlayer.PlayClipOnce(SFXSpellSound);
             MrBAnimator.SetTrigger(triggers.START);
@@ -126,10 +137,15 @@ namespace Assets.Scripts {
             PlayGrowl();
             yield return new WaitForSeconds(1.5f);
             arrived = true;
+            gameSession.LockBallAndPaddle(false);
         }
 
         public void PlayGrowl() {
             SFXPlayer.PlayClipOnce(SFXArriveSound);
+        }
+
+        public void PlayExplosionSquish() {
+            SFXPlayer.PlayClipOnce(SFXExplosionSquishy);
         }
 
         public void startPlatformPS() {
@@ -166,7 +182,7 @@ namespace Assets.Scripts {
         }
 
         public override void OnDeath() {
-            print("Boss \"died\"");
+            print("Boss died");
             StartCoroutine(AfterDeathSequence());
         }
 

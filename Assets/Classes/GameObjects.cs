@@ -9,5 +9,6 @@ namespace Assets.Classes {
         public const String MRBHEALTHBAR = "MrBHealthBar";
         public const String SPARKLES = "sparkles";
         public const String LIVESTEXT = "LivesText";
+        public const String IMPACT_EFFECT = "impactEffect";
     }
 }

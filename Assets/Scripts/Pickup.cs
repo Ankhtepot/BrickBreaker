@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Classes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,13 +28,13 @@ public class Pickup : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.tag == "Paddle") {
+        if (collision.gameObject.tag == tags.PADDLE) {
             SoundSystem SFXPlayer = FindObjectOfType<SoundSystem>();
             if(SFXPlayer) SFXPlayer.PlayClipOnce(pickupSound);
             pickupTable.ApplyEffect(pickupType);
             DestroyThis();
         }
-        if (collision.gameObject.tag == "LoseCollider") DestroyThis();
+        if (collision.gameObject.tag == tags.LOSE_COLLIDER) DestroyThis();
     }
 
     private void DestroyThis() {

@@ -172,6 +172,14 @@ public class GameSession : MonoBehaviour {
         inputIsEnabled = true;
     }
 
+    public void LockBallAndPaddle(bool isLocked) {
+        if(isLocked) {
+            FindObjectOfType<Ball>().lockToPaddle();
+        }
+        inputIsEnabled = !isLocked;
+        print("Movement is Enabled = " + inputIsEnabled);
+    }
+
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnSceneLoadGameSession;
     }

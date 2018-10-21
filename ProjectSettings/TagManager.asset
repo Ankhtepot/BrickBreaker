@@ -17,6 +17,8 @@ TagManager:
   - DontMute
   - CheckBox
   - Boss
+  - Healing
+  - LifePickup
   layers:
   - Default
   - TransparentFX
