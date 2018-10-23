@@ -7,12 +7,20 @@ using UnityEngine.SceneManagement;
 public class Options : MonoBehaviour {
 
     [SerializeField] public bool showHintBoards = true;
+    [SerializeField] public int LivesBase = 10;
+    [SerializeField] public int LivesCurrent;
+    [SerializeField] int HighestLevel = 0;
     
     [SerializeField] UnityEvent setShowHintBoardsOn;
     [SerializeField] UnityEvent setShowHintBoardsOff;
 
+    //caches
+    SceneLoader sceneLoader;
+
     private void Start() {
         SceneManager.sceneLoaded += OnScreenLoad;
+        sceneLoader = FindObjectOfType<SceneLoader>();
+        LivesCurrent = LivesBase;
     }
 
     public void ToggleShowHintBoards() {
@@ -24,6 +32,8 @@ public class Options : MonoBehaviour {
 
     private void OnScreenLoad(Scene loadedScene, LoadSceneMode mode) {
         BroadcastShowHintBoards();
+        if (sceneLoader && !sceneLoader.isCurrentSceneLevel()) LivesCurrent = LivesBase;
+        else print("Options/OnScreenLoad: missing sceneLoader");
     }
 
     private void BroadcastShowHintBoards() {
@@ -34,6 +44,10 @@ public class Options : MonoBehaviour {
 
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnScreenLoad;
+    }
+
+    public void SetHighestLevel(int level) {
+        HighestLevel = level;
     }
 
     //public bool ShowHintBoards {

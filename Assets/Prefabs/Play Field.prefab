@@ -2098,7 +2098,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -11182,7 +11182,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -20006,7 +20006,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: dc9bb6716cb9f6d48812dd28aa5556cc, type: 3}
-  m_Color: {r: 0.8018868, g: 0.74514955, b: 0.74514955, a: 1}
+  m_Color: {r: 0.6132076, g: 0.5559212, b: 0.50040054, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

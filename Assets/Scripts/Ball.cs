@@ -69,6 +69,7 @@ public class Ball : MonoBehaviour {
 
     public void lockToPaddle() {
         transform.position = paddle1.transform.position + PaddleBallRelation;
+        hasStarted = false;
     }
 
     private bool isOtherBallPresent() {

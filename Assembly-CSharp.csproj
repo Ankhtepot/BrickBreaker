@@ -61,16 +61,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BoAtLeHeAcid.cs" />
-    <Compile Include="Assets\BoAtLeHeFireballPickup.cs" />
-    <Compile Include="Assets\BoAtLeHeGrowl.cs" />
-    <Compile Include="Assets\BoAtNothing.cs" />
-    <Compile Include="Assets\BoAtRiHeGrowl.cs" />
-    <Compile Include="Assets\BoAtRiHeHealing.cs" />
-    <Compile Include="Assets\BoAtRiHeLifePickup.cs" />
-    <Compile Include="Assets\BossAttackManager.cs" />
     <Compile Include="Assets\Classes\BossAttack.cs" />
     <Compile Include="Assets\Classes\gameobjects.cs" />
+    <Compile Include="Assets\Classes\scenes.cs" />
     <Compile Include="Assets\Classes\tags.cs" />
     <Compile Include="Assets\Classes\triggers.cs" />
     <Compile Include="Assets\Interfaces\IBoss.cs" />
@@ -80,12 +73,21 @@
     <Compile Include="Assets\Scripts\AnimationAdapter.cs" />
     <Compile Include="Assets\Scripts\Apple.cs" />
     <Compile Include="Assets\Scripts\Ball.cs" />
+    <Compile Include="Assets\Scripts\BoAtLeHeAcid.cs" />
+    <Compile Include="Assets\Scripts\BoAtLeHeFireballPickup.cs" />
+    <Compile Include="Assets\Scripts\BoAtLeHeGrowl.cs" />
+    <Compile Include="Assets\Scripts\BoAtNothing.cs" />
+    <Compile Include="Assets\Scripts\BoAtRiHeGrowl.cs" />
+    <Compile Include="Assets\Scripts\BoAtRiHeHealing.cs" />
+    <Compile Include="Assets\Scripts\BoAtRiHeLifePickup.cs" />
     <Compile Include="Assets\Scripts\Boss.cs" />
+    <Compile Include="Assets\Scripts\BossAttackManager.cs" />
     <Compile Include="Assets\Scripts\BossBody.cs" />
     <Compile Include="Assets\Scripts\Brick.cs" />
     <Compile Include="Assets\Scripts\CheckBox.cs" />
     <Compile Include="Assets\Scripts\CleaningAtStart.cs" />
     <Compile Include="Assets\Scripts\CreditsButton.cs" />
+    <Compile Include="Assets\Scripts\CreditsManagement.cs" />
     <Compile Include="Assets\Scripts\EnlargeShield.cs" />
     <Compile Include="Assets\Scripts\GameplayButton.cs" />
     <Compile Include="Assets\Scripts\GameSession.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Assets\Scripts\PlayList.cs" />
     <Compile Include="Assets\Scripts\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\ResetLogic.cs" />
+    <Compile Include="Assets\Scripts\ResponsiveElementUI.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\SmokeEffect.cs" />
     <Compile Include="Assets\Scripts\SoundSystem.cs" />

@@ -22,6 +22,7 @@ public class GameSession : MonoBehaviour {
     [SerializeField] bool checkForBricks = true;
     //[SerializeField] float SplashScreenShowUpDuration = 2f;
     private TextMeshProUGUI LivesText;
+    private GameObject canvas;
     //[SerializeField] float xMinKe;
     [Header("BallShakerProps")]
     [Range(0, 10)] [SerializeField] float xMin = 3f;
@@ -32,28 +33,35 @@ public class GameSession : MonoBehaviour {
     //Caches
     SceneLoader sceneLoader;
     Options options;
-    static GameSession instance = null;
+    //static GameSession instance = null;
     bool brickCheckCDIsOff = true;
 
     private void Start() {
+        SetCaches();
+        InicializeLevel();
+    }
+
+    private void InicializeLevel() {
+        if (!sceneLoader.isCurrentSceneLevel()) {
+            if (canvas) canvas.SetActive(false);
+        }
+        UpdateLivesText();
+        if (options) {
+            Lives = options.LivesCurrent;
+            options.SetHighestLevel(SceneManager.GetActiveScene().buildIndex);
+        } else print("GameSession/Start: missing options");
+        if (LivesText) UpdateLivesText();
+        else print("GameSession/Start: missing LiveText");
+        StartCoroutine(DelayGameplay());
+    }
+
+    private void SetCaches() {
         GameObject goLiveText = GameObject.Find(gameobjects.LIVESTEXT);
         LivesText = goLiveText.GetComponent<TextMeshProUGUI>();
+        canvas = GameObject.Find(gameobjects.GAME_CANVAS);
         SceneManager.sceneLoaded += OnSceneLoadGameSession;
         options = FindObjectOfType<Options>();
         sceneLoader = FindObjectOfType<SceneLoader>();
-
-        if (instance != null && instance != this) {
-            //print("Destroying duplicate GameSession");
-            Destroy(gameObject);
-        } else {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-        if (!sceneLoader.isCurrentSceneLevel()) {
-            if (LivesText) LivesText.enabled = false;
-        }
-        UpdateLivesText();
-        StartCoroutine(DelayGameplay());
     }
 
     private void Update() {
@@ -61,7 +69,7 @@ public class GameSession : MonoBehaviour {
         if (!isBossSessionInProgress) {
             while (checkForBricks && brickCheckCDIsOff) {
                 StartCoroutine(checkBrickCount());
-            } 
+            }
         }
     }
 
@@ -109,6 +117,7 @@ public class GameSession : MonoBehaviour {
             if (boss != null) {
                 isBossSessionInProgress = true;
                 boss.StartEncounter();
+                options.SetHighestLevel(-1); // -1 for MrBrickworm
             } else {
                 NextLevel();
             }
@@ -119,7 +128,7 @@ public class GameSession : MonoBehaviour {
         SceneLoader sceneLoader = FindObjectOfType<SceneLoader>();
         if (sceneLoader) {
             if (sceneLoader.isCurrentSceneLevel()) sceneLoader.LoadScene();
-        } else print("GameSession: SceneLoader not found");
+        } else print("GameSession/NextLevel: SceneLoader not found");
     }
 
     private int CountBricks() {
@@ -135,6 +144,7 @@ public class GameSession : MonoBehaviour {
 
     public void AddLife() {
         Lives++;
+        options.LivesCurrent++;
         UpdateLivesText();
         Animator paddle = FindObjectOfType<LifeAdjustment>().GetComponent<Animator>();
         if (paddle) paddle.SetTrigger(triggers.PLUS);
@@ -145,6 +155,7 @@ public class GameSession : MonoBehaviour {
             FindObjectOfType<SceneLoader>().LoadGameOverScene();
         } else {
             Lives--;
+            options.LivesCurrent--;
             Animator paddle = FindObjectOfType<LifeAdjustment>().GetComponent<Animator>();
             if (paddle) paddle.SetTrigger(triggers.MINUS);
             UpdateLivesText();
@@ -161,6 +172,9 @@ public class GameSession : MonoBehaviour {
         if (options) {
             StartCoroutine(DelayGameplay());
         } else print("GameSession/DelayGameplay: options not found");
+        if (sceneLoader.isCurrentSceneLevel()) {
+            if (canvas) canvas.SetActive(false); 
+        }
     }
 
     IEnumerator DelayGameplay() {
@@ -168,12 +182,12 @@ public class GameSession : MonoBehaviour {
         inputIsEnabled = false;
         float waitTime = options.showHintBoards ? sceneLoader.SplashScreenDelay : 0f;
         //Debug.Log("GameSession/DelayGameplay: waitTime: " + (waitTime + sceneLoader.SplScrProlongOffset));
-        yield return new WaitForSeconds(waitTime+sceneLoader.SplScrProlongOffset);
+        yield return new WaitForSeconds(waitTime + sceneLoader.SplScrProlongOffset);
         inputIsEnabled = true;
     }
 
     public void LockBallAndPaddle(bool isLocked) {
-        if(isLocked) {
+        if (isLocked) {
             FindObjectOfType<Ball>().lockToPaddle();
         }
         inputIsEnabled = !isLocked;

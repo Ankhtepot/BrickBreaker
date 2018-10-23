@@ -17,23 +17,16 @@ public class SceneLoader : MonoBehaviour {
     //Caches
     Animator splashScreen;
     Options options;
-    List<string> notLevelScenes = new List<string> { "Start Screen", "Win Screen", "Game Over", "Credits Scene" };
+    List<string> notLevelScenes = new List<string> {
+        scenes.START, scenes.WIN,  scenes.GAME_OVER, scenes.CREDITS
+    };
     SoundSystem SFXPlayer;
-
-    //static SceneLoader instance = null;
 
     private void OnEnable() {
         SceneManager.sceneLoaded += OnSceneLoad;
     }
 
     private void Start() {
-        //if (instance != null && instance != this) {
-        //    print("Destroying duplicate SceneLoader");
-        //    Destroy(gameObject);
-        //} else {
-        //    instance = this;
-        //    DontDestroyOnLoad(this);
-        //}
         if (splashScreen) splashScreen = FindObjectOfType<SplashScreen>().GetComponent<Animator>();
         SFXPlayer = FindObjectOfType<SoundSystem>();
         options = FindObjectOfType<Options>();
@@ -52,9 +45,9 @@ public class SceneLoader : MonoBehaviour {
         //Debug.Log("Loading Screen index: " + (sceneToBeLoaded));
         SceneToBeLoaded = sceneToBeLoaded;
         if (splashScreen) {
-            splashScreen.SetTrigger("ShowUp");
+            splashScreen.SetTrigger(triggers.SHOW_UP);
         } else {
-            print("SceneLoader: FetchLevel: splashScreen not found, fetching level without animation");
+            print("SceneLoader/FetchLevel: splashScreen not found, fetching level without animation");
             SceneManager.LoadScene(sceneToBeLoaded);
         }
     }
@@ -69,18 +62,18 @@ public class SceneLoader : MonoBehaviour {
     }
 
     public void LoadGameOverScene() {
-        int gameOverSceneNr = sceneIndexFromName("Game Over");
+        int gameOverSceneNr = sceneIndexFromName(scenes.GAME_OVER);
         LoadScene(gameOverSceneNr);
     }
 
     public void ManageCreditsSceneView() {
         Scene currentScreen = SceneManager.GetActiveScene();
-        int creditsSceneNr = sceneIndexFromName("Credits Scene");
+        int creditsSceneNr = sceneIndexFromName(scenes.CREDITS);
         //print("SceneLoader/ManageCreditsSceneView: creditsSceneNr: " + creditsSceneNr);
-        if (currentScreen.name != "Credits Scene") {
+        if (currentScreen.name != scenes.CREDITS) {
             sceneToReturnTo = currentScreen.buildIndex;
             LoadScene(creditsSceneNr);
-        } else if (currentScreen.name == "Credits Scene")
+        } else if (currentScreen.name == scenes.CREDITS)
             LoadScene(sceneToReturnTo);
     }
 
@@ -103,7 +96,7 @@ public class SceneLoader : MonoBehaviour {
     }
 
     private void RunSplashScreen() {
-        //if (!splashScreen) splashScreen = FindObjectOfType<SplashScreen>().GetComponent<Animator>();
+        if (!splashScreen) splashScreen = FindObjectOfType<SplashScreen>().GetComponent<Animator>();
         if (!options) options = FindObjectOfType<Options>();
         if (splashScreen) {
             if (options.showHintBoards && isCurrentSceneLevel()) {
@@ -117,10 +110,10 @@ public class SceneLoader : MonoBehaviour {
         //print("SceneLoader: DelaySplScrFade - start ");
         yield return new WaitForSeconds(SplashScreenDelay);
         //print("SceneLoader: DelaySplScrFade - delayed " + SplashScreenDelay + "s");
-        splashScreen.SetTrigger("Fade");
+        splashScreen.SetTrigger(triggers.FADE);
     }
 
-    private string NameFromIndex(int BuildIndex) { //@Author:  Iamsodarncool/UnityAnswers
+    private string NameFromIndex(int BuildIndex) { ///@Author:  Iamsodarncool/UnityAnswers
         string path = SceneUtility.GetScenePathByBuildIndex(BuildIndex);
         int slash = path.LastIndexOf('/');
         string name = path.Substring(slash + 1);

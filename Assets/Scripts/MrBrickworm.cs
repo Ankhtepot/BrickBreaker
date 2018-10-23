@@ -173,7 +173,7 @@ namespace Assets.Scripts {
         }
 
         private void ChangeHPValue(int change) {
-            HealthPointsCurrent += change;
+            HealthPointsCurrent = Math.Min(HealthPointsCurrent + change, HealthPointsBase);
         }
 
         private float healthChangeInPorcent(float damage) {

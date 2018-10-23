@@ -21,5 +21,9 @@ namespace Assets.Classes {
         public const String HIT = "Hit";
         public const String ATTACKRIGHT = "AttackRight";
         public const String ATTACKLEFT = "AttackLeft";
+        public const String SHOW_GRAPHICS = "ShowGraphics";
+        public const String SHOW_REST = "ShowRest";
+        public const String SHOW_AUDIO = "ShowAudio";
+        public const String SHOW_UP = "ShowUp";
     }
 }

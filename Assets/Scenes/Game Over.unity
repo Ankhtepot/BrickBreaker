@@ -252,6 +252,88 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &683776528
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4802425676015070, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 7.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802425676015070, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802425676015070, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802425676015070, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802425676015070, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802425676015070, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802425676015070, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802425676015070, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114260098646444322, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114260098646444322, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114541155846442350, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114541155846442350, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114692836927776656, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114692836927776656, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114041794572283340, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114041794572283340, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &973666447
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,8 +370,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 216.7, y: 85}
-  m_SizeDelta: {x: 340.89, y: 155.2}
+  m_AnchoredPosition: {x: 212.3, y: 77.1}
+  m_SizeDelta: {x: 298.76, y: 125.62}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &973666449
 MonoBehaviour:
@@ -366,7 +448,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 5b535f3130c8ed34da3f2018be07c91e, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
