@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Globals : MonoBehaviour {
 
-    //[SerializeField] GameSession gameSession;
-    [SerializeField] GameSession instantiatedGameSession = null;
-
     static Globals instance = null;
 
     // Use this for initialization
@@ -18,14 +15,6 @@ public class Globals : MonoBehaviour {
             instance = this;
             DontDestroyOnLoad(this);
         }
-        //if (!instantiatedGameSession) {
-        //    print("Instantiating GameSession");
-        //    instantiatedGameSession = Instantiate(gameSession, transform);
-        //}
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
 }

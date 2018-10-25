@@ -4,7 +4,9 @@ using Assets.Classes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
@@ -15,10 +17,11 @@ public class SceneLoader : MonoBehaviour {
     [SerializeField] public float SplScrProlongOffset = 0.75f;
 
     //Caches
+    [SerializeField] Button continueButton;
     Animator splashScreen;
     Options options;
     List<string> notLevelScenes = new List<string> {
-        scenes.START, scenes.WIN,  scenes.GAME_OVER, scenes.CREDITS
+        scenes.START, scenes.WIN, scenes.GAME_OVER, scenes.CREDITS
     };
     SoundSystem SFXPlayer;
 
@@ -30,6 +33,7 @@ public class SceneLoader : MonoBehaviour {
         if (splashScreen) splashScreen = FindObjectOfType<SplashScreen>().GetComponent<Animator>();
         SFXPlayer = FindObjectOfType<SoundSystem>();
         options = FindObjectOfType<Options>();
+        ManageContinueButtonText();
     }
 
     public void LoadScene() {
@@ -86,6 +90,16 @@ public class SceneLoader : MonoBehaviour {
         //print("SceneLoader: scene buildIndex: " + SceneManager.GetActiveScene().buildIndex + " loaded. SceneLoader Hash: " + this.GetHashCode());
         ChooseMusicByScene();
         RunSplashScreen();
+        ManageContinueButtonText();
+        AssignContinueButton();
+    }
+
+    private void AssignContinueButton() {
+        if(SceneManager.GetActiveScene().buildIndex == 0 && continueButton == null) {
+            print("SceneLoader/AssignContinueButton: assigning button");
+            continueButton = GameObject.Find(gameobjects.CONTINUE_BUTTON).GetComponent<Button>();
+            continueButton.onClick.AddListener(ContinueButtonClick);
+        }
     }
 
     private void ChooseMusicByScene() {
@@ -106,6 +120,37 @@ public class SceneLoader : MonoBehaviour {
         } else print("SceneLoader/OnSceneLoad: No splashScreen found");
     }
 
+    public void ManageContinueButtonText() {
+        if (isCurrentSceneName(scenes.START)) {
+            TextMeshProUGUI targetText =
+                GameObject.Find(gameobjects.TARGET_TEXT).GetComponentInChildren<TextMeshProUGUI>();
+            if (options && targetText) {
+                String levelToGoTo = "Level ";
+                switch (options.HighestLevel) {
+                    case -1: case 0: case 1:
+                        levelToGoTo += sceneIndexFromName(scenes.FIRST_LEVEL).ToString(); break;
+                    case intconstants.MRBRICKWORM: levelToGoTo = scenes.MRBRICKWORM; break;
+                    default: levelToGoTo += options.HighestLevel.ToString(); break;
+                }
+                targetText.text = levelToGoTo;
+            } 
+        }
+    }
+
+    public void ContinueButtonClick() {
+        
+        int targetLevel = 1;
+        if (options) {
+            print("SceneLoader/ContinueButtonClick: HighestLevel is: " + options.HighestLevel);
+            switch (options.HighestLevel) {
+                case -1: case 0: case 1: targetLevel = intconstants.FIRSTLEVEL; break;
+                case intconstants.MRBRICKWORM:
+                    targetLevel = sceneIndexFromName(scenes.MRBRICKWORMLEVEL); break;
+            }
+        } else if (!options) print("SceneLoader/ContinueButtonClick: missing options");
+        LoadScene(targetLevel);
+    }
+
     IEnumerator DelaySplScrFade() {
         //print("SceneLoader: DelaySplScrFade - start ");
         yield return new WaitForSeconds(SplashScreenDelay);
@@ -124,11 +169,16 @@ public class SceneLoader : MonoBehaviour {
     private int sceneIndexFromName(string sceneName) {
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++) {
             string testedScreen = NameFromIndex(i);
-            //print("sceneIndexFromName: i: " + i + " sceneName = " + testedScreen);
+            //print("SceneLoader/sceneIndexFromName: i: " + i + " sceneName = " + testedScreen);
             if (testedScreen == sceneName)
                 return i;
         }
         return -1;
+    }
+
+    private bool isCurrentSceneName(String sceneName) {
+        if (SceneManager.GetActiveScene().name == sceneName) return true;
+        return false;
     }
 
     private void OnDisable() {

@@ -7,15 +7,24 @@ using UnityEngine.SceneManagement;
 public class Options : MonoBehaviour {
 
     [SerializeField] public bool showHintBoards = true;
-    [SerializeField] public int LivesBase = 10;
+    [SerializeField] public const int LivesBase = 10;
     [SerializeField] public int LivesCurrent;
-    [SerializeField] int HighestLevel = 0;
+    [SerializeField] int highestLevel = 0;
     
     [SerializeField] UnityEvent setShowHintBoardsOn;
     [SerializeField] UnityEvent setShowHintBoardsOff;
 
     //caches
     SceneLoader sceneLoader;
+
+    public int HighestLevel {
+        get {
+            return highestLevel;
+        }
+        set {
+            if (HighestLevel < value) highestLevel = value;
+        }
+    }
 
     private void Start() {
         SceneManager.sceneLoaded += OnScreenLoad;
@@ -32,8 +41,10 @@ public class Options : MonoBehaviour {
 
     private void OnScreenLoad(Scene loadedScene, LoadSceneMode mode) {
         BroadcastShowHintBoards();
-        if (sceneLoader && !sceneLoader.isCurrentSceneLevel()) LivesCurrent = LivesBase;
-        else print("Options/OnScreenLoad: missing sceneLoader");
+        if (sceneLoader && !sceneLoader.isCurrentSceneLevel()) {
+            print("Options/OnScreenLoad: setting LivesCurrent to " + LivesBase);
+            LivesCurrent = LivesBase;
+        } else if(!sceneLoader) print("Options/OnScreenLoad: missing sceneLoader");
     }
 
     private void BroadcastShowHintBoards() {
@@ -44,10 +55,6 @@ public class Options : MonoBehaviour {
 
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnScreenLoad;
-    }
-
-    public void SetHighestLevel(int level) {
-        HighestLevel = level;
     }
 
     //public bool ShowHintBoards {

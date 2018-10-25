@@ -4532,6 +4532,16 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114041794572283340, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114041794572283340, guid: e889e9ef006d1e844b5d8ca6898be166,
+        type: 2}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e889e9ef006d1e844b5d8ca6898be166, type: 2}
   m_IsPrefabAsset: 0
@@ -4650,6 +4660,10 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1106228962026100, guid: 37d5bc60d1d283e4ca23b72fb9d29299, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1364092436590842, guid: 37d5bc60d1d283e4ca23b72fb9d29299, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

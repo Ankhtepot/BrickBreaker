@@ -46,10 +46,10 @@ public class GameSession : MonoBehaviour {
             if (canvas) canvas.SetActive(false);
         }
         UpdateLivesText();
-        if (options) {
+        if (options && sceneLoader.isCurrentSceneLevel()) {
             Lives = options.LivesCurrent;
-            options.SetHighestLevel(SceneManager.GetActiveScene().buildIndex);
-        } else print("GameSession/Start: missing options");
+            options.HighestLevel = SceneManager.GetActiveScene().buildIndex;
+        } else if(!options) print("GameSession/Start: missing options");
         if (LivesText) UpdateLivesText();
         else print("GameSession/Start: missing LiveText");
         StartCoroutine(DelayGameplay());
@@ -117,7 +117,7 @@ public class GameSession : MonoBehaviour {
             if (boss != null) {
                 isBossSessionInProgress = true;
                 boss.StartEncounter();
-                options.SetHighestLevel(-1); // -1 for MrBrickworm
+                options.HighestLevel = intconstants.MRBRICKWORM; 
             } else {
                 NextLevel();
             }

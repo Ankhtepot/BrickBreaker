@@ -39,10 +39,12 @@ namespace Assets.Scripts {
         [SerializeField] float MovementSpeed = 0.1f;
 
         //cached vars
+        [Header("Cached wars")]
         [SerializeField] public bool isAlive = true;
         [SerializeField] public bool arrived = false;
         [SerializeField] bool attackPhase = false;
         [SerializeField] Transform targetPosition = null;
+        [SerializeField] Options options;
 
         public override void Dying() {
             attackPhase = false;
@@ -64,14 +66,24 @@ namespace Assets.Scripts {
             base.Start();
             GetTargetPosition();
             HealthPointsCurrent = HealthPointsBase;
+            AssignCachedObjects();
+            if(options && options.HighestLevel == intconstants.MRBRICKWORM) BigAppleGone();
+        }
+
+        private void BigAppleGone() {
+            print("MrBrickworm/BigAppleGone: setting BigApple to deactivated");
+            GameObject.Find(gameobjects.BIG_APPLE).SetActive(false);
+        }
+
+        private void AssignCachedObjects() {
             MrBAnimator = GameObject.Find(gameobjects.MRBRICKWORM).GetComponent<Animator>();
             HealthBar = GameObject.Find(gameobjects.MRBHEALTHBAR).GetComponent<ProgressBar>();
             gameSession = FindObjectOfType<GameSession>();
+            options = FindObjectOfType<Options>();
         }
 
         private void Update() {
             ResolveMoving();
-
         }
 
         private void ResolveMoving() {
@@ -88,7 +100,6 @@ namespace Assets.Scripts {
                 MrBAnimator.SetFloat(triggers.LEGWIGGLESPEED, 10f);
                 MrBAnimator.SetTrigger(triggers.MOVELEGS);
             }
-
         }
 
         private bool ArrivedAtPoint() {
@@ -114,17 +125,13 @@ namespace Assets.Scripts {
             attackPhase = false;
         }
 
-        private void PerformAttack() {
-            //MrBAnimator.SetTrigger("AttackLeft");
-            MrBAnimator.SetTrigger(triggers.ATTACKRIGHT);
-        }
-
         public override void OnArrival() {
             //print("MrBrickworm: OnArrival: test OK");
             opennedDoors.enabled = true;
             SFXPlayer.PlayClipOnce(SFXOpeningDoors);
             PSOpennedDoors.Play();
             StartCoroutine(Arrive());
+            if (options) options.HighestLevel = intconstants.MRBRICKWORM;
         }
 
         IEnumerator Arrive() {

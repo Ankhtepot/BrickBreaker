@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Classes\BossAttack.cs" />
     <Compile Include="Assets\Classes\gameobjects.cs" />
+    <Compile Include="Assets\Classes\intconstants.cs" />
     <Compile Include="Assets\Classes\scenes.cs" />
     <Compile Include="Assets\Classes\tags.cs" />
     <Compile Include="Assets\Classes\triggers.cs" />

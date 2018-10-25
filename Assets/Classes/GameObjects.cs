@@ -11,5 +11,8 @@ namespace Assets.Classes {
         public const String LIVESTEXT = "LivesText";
         public const String IMPACT_EFFECT = "impactEffect";
         public const String GAME_CANVAS = "Game Canvas";
+        public const String CONTINUE_BUTTON = "ContinueButton";
+        public const String TARGET_TEXT = "TargetText";
+        public const String BIG_APPLE = "BigApple";
     }
 }
