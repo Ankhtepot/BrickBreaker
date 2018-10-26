@@ -123,6 +123,7 @@ public class Ball : MonoBehaviour {
                 case tags.UNBREAKABLE: SFXPlayer.PlayClipOnce(unbreakableSound); break;
                 case tags.PADDLE: SFXPlayer.PlayClipOnce(paddleSound); break;
                 case tags.WALL: SFXPlayer.PlayClipOnce(wallBounceSound); break;
+                case tags.PICKUP:;break;
                 default: {
                         IPlayList B = objectOfCollision.GetComponent<IPlayList>();
                         if (B != null) {

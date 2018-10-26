@@ -96,7 +96,7 @@ public class SceneLoader : MonoBehaviour {
 
     private void AssignContinueButton() {
         if(SceneManager.GetActiveScene().buildIndex == 0 && continueButton == null) {
-            print("SceneLoader/AssignContinueButton: assigning button");
+            //print("SceneLoader/AssignContinueButton: assigning button");
             continueButton = GameObject.Find(gameobjects.CONTINUE_BUTTON).GetComponent<Button>();
             continueButton.onClick.AddListener(ContinueButtonClick);
         }
@@ -113,7 +113,7 @@ public class SceneLoader : MonoBehaviour {
         if (!splashScreen) splashScreen = FindObjectOfType<SplashScreen>().GetComponent<Animator>();
         if (!options) options = FindObjectOfType<Options>();
         if (splashScreen) {
-            if (options.showHintBoards && isCurrentSceneLevel()) {
+            if (options.ShowHintBoards && isCurrentSceneLevel()) {
                 //print("SceneLoader/OnSceneLoad: before CORoutine");
                 StartCoroutine(DelaySplScrFade());
             } else splashScreen.SetTrigger(triggers.FADE);
@@ -141,7 +141,7 @@ public class SceneLoader : MonoBehaviour {
         
         int targetLevel = 1;
         if (options) {
-            print("SceneLoader/ContinueButtonClick: HighestLevel is: " + options.HighestLevel);
+            //print("SceneLoader/ContinueButtonClick: HighestLevel is: " + options.HighestLevel);
             switch (options.HighestLevel) {
                 case -1: case 0: case 1: targetLevel = intconstants.FIRSTLEVEL; break;
                 case intconstants.MRBRICKWORM:

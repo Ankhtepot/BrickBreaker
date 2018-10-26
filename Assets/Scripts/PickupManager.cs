@@ -8,7 +8,9 @@ using UnityEngine;
 public class PickupManager : MonoBehaviour {
     [Header("Setup")]
     [SerializeField] GameObject[] ListOfUsedPickups;
-    [SerializeField] float PickupDropChance = 0.7f;
+    [SerializeField] float PickupDropChance = 40f;
+    [SerializeField] float dropCD = 10f;
+    [SerializeField] bool dropOffCD = true;
     [Header("Glue setup")]
     [SerializeField] float GlueDuration = 10f;
     [Header("Laser setup")]
@@ -63,9 +65,16 @@ public class PickupManager : MonoBehaviour {
 
     public void ProcessPickupChanceOfSpawning(Vector2 spawnPosition) {
         int chanceRoll = UnityEngine.Random.Range(1, 101);
-        if (chanceRoll <= PickupDropChance) {
+        if (dropOffCD && chanceRoll <= PickupDropChance) {
             SpawnPickup(spawnPosition);
+            StartCoroutine(StartDropCD());
         }
+    }
+
+    IEnumerator StartDropCD() {
+        dropOffCD = false;
+        yield return new WaitForSeconds(dropCD);
+        dropOffCD = true;
     }
 
     private void SpawnPickup(Vector2 spawnPosition) {

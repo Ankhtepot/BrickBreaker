@@ -31,7 +31,7 @@ public class MessageBoard : MonoBehaviour {
         if (SL.isCurrentSceneLevel()) {
             Options options = FindObjectOfType<Options>();
             if (isActive) {
-                if (isHint && options != null && animator != null && options.showHintBoards) SwoopBoardIn();
+                if (isHint && options != null && animator != null && options.ShowHintBoards) SwoopBoardIn();
                 if (!waitForDismiss) StartCoroutine(DelayDismiss()); 
             } 
         }
@@ -39,7 +39,7 @@ public class MessageBoard : MonoBehaviour {
 
     private void Update() {
         if (dismmissType == DismmissType.OnMouseClick && Input.GetMouseButtonDown(0) && waitsForDismissal) {
-            print("MessageBoard/Update: LMB presset, Dismissing Board");
+            //print("MessageBoard/Update: LMB presset, Dismissing Board");
             DismissBoard();
         }
     }

@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class Options : MonoBehaviour {
 
-    [SerializeField] public bool showHintBoards = true;
+    [SerializeField] public bool ShowHintBoards = true;
     [SerializeField] public const int LivesBase = 10;
     [SerializeField] public int LivesCurrent;
     [SerializeField] int highestLevel = 0;
+    [SerializeField] public int baseForScore = 10;
+    [SerializeField] int score = 0;
+    [SerializeField] List<int> scoreList;
     
     [SerializeField] UnityEvent setShowHintBoardsOn;
     [SerializeField] UnityEvent setShowHintBoardsOff;
@@ -26,6 +29,14 @@ public class Options : MonoBehaviour {
         }
     }
 
+    public int Score {
+        get { return score;}
+        set {
+            if (score - value < 0) score = 0;
+            else score = value;
+        }
+    }
+
     private void Start() {
         SceneManager.sceneLoaded += OnScreenLoad;
         sceneLoader = FindObjectOfType<SceneLoader>();
@@ -36,7 +47,7 @@ public class Options : MonoBehaviour {
         //print("Options/ToggleShowHintBoards: reached");
         //if (showHintBoards) setShowHintBoardsOff.Invoke();
         //else setShowHintBoardsOn.Invoke();
-        showHintBoards = !showHintBoards;
+        ShowHintBoards = !ShowHintBoards;
     }
 
     private void OnScreenLoad(Scene loadedScene, LoadSceneMode mode) {
@@ -49,21 +60,12 @@ public class Options : MonoBehaviour {
 
     private void BroadcastShowHintBoards() {
         //if (ShowHintBoards) setShowHintBoardsOn.Invoke();
-        if (showHintBoards) setShowHintBoardsOn.Invoke();
+        if (ShowHintBoards) setShowHintBoardsOn.Invoke();
         else setShowHintBoardsOff.Invoke();
     }
 
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnScreenLoad;
     }
-
-    //public bool ShowHintBoards {
-    //    get {
-    //        return showHintBoards;
-    //    }
-    //    set {
-    //        ShowHintBoards = value;
-    //        print("Options: Seting ShowMessageBoards(" + ShowHintBoards + ")");
-    //    }
-    //}
+    
 }

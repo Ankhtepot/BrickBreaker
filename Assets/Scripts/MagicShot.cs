@@ -6,23 +6,24 @@ public class MagicShot : MonoBehaviour {
 
     [SerializeField] float speed = 0.15f;
     [SerializeField] AudioClip hitSound;
+    [SerializeField] ParticleSystem impactEffect;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
 	void Update () {
         transform.position = new Vector3(transform.position.x, transform.position.y + speed, 0);
 	}
 
     private void onCollisionEnter2D(Collision2D collision) {
+        if (impactEffect) {
+            Instantiate(impactEffect, transform.position, Quaternion.identity);
+        } else if (!impactEffect) print("MagicShot/onCollisionEnter2D: no imapctEffect assigned");
         DestroyThis();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         //print("MagicShot met trigger");
+        if (impactEffect) {
+            Instantiate(impactEffect, collision.transform.position, Quaternion.identity);
+        } //else if (!impactEffect) print("MagicShot/onTriggerEnter2D: no imapctEffect assigned");
         DestroyThis();
     }
 

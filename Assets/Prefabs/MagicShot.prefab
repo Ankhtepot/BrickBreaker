@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.2
   hitSound: {fileID: 8300000, guid: 91db2cea737a9f6498dfbc7b0b591f5b, type: 3}
+  impactEffect: {fileID: 0}
 --- !u!212 &212653331994797266
 SpriteRenderer:
   m_ObjectHideFlags: 1

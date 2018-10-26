@@ -1406,10 +1406,12 @@ MonoBehaviour:
   - {fileID: 1183026422804692, guid: 0d51eb857cea6e54d9f0e7bb3de10a66, type: 2}
   - {fileID: 1183026422804692, guid: 133580b69d5f94b4382f5cc349b48cda, type: 2}
   - {fileID: 1183026422804692, guid: 906f6384f5dc29d4b9620874ee391fc2, type: 2}
-  PickupDropChance: 10
+  PickupDropChance: 40
+  dropCD: 10
+  dropOffCD: 1
   GlueDuration: 15
   LaserDuration: 10
-  magicShot: {fileID: 114560970896185872, guid: 1fc8407b894c5074e989db47219f4cf8,
+  magicShot: {fileID: 114182526635594818, guid: a3030a70a6c9ddb45b11d04073f09135,
     type: 2}
   MagicShotYOffset: 1
   FireballDuration: 10
@@ -1443,6 +1445,7 @@ MonoBehaviour:
   SceneToBeLoaded: 0
   SplashScreenDelay: 2
   SplScrProlongOffset: 0.75
+  continueButton: {fileID: 0}
 --- !u!114 &114547898998438856
 MonoBehaviour:
   m_ObjectHideFlags: 1

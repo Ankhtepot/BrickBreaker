@@ -25,7 +25,7 @@ public class CheckBox : MonoBehaviour {
         bodySprite = GetComponent<SpriteRenderer>();
         options = FindObjectOfType<Options>();
         animator = GetComponent<Animator>();
-        if (options) isOn = options.showHintBoards;
+        if (options) isOn = options.ShowHintBoards;
         SetCheckBoxState();
     }
 
@@ -42,7 +42,7 @@ public class CheckBox : MonoBehaviour {
             if (hit.collider != null && hit.transform.gameObject.tag == "CheckBox") {
                 print("Just clicked on CheckBox");
                 isOn = !isOn;
-                if (options) options.showHintBoards = isOn;
+                if (options) options.ShowHintBoards = isOn;
                 SetCheckBoxState();
                 toggleAction.Invoke();
             }

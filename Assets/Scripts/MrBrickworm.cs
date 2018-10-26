@@ -71,7 +71,7 @@ namespace Assets.Scripts {
         }
 
         private void BigAppleGone() {
-            print("MrBrickworm/BigAppleGone: setting BigApple to deactivated");
+            //print("MrBrickworm/BigAppleGone: setting BigApple to deactivated");
             GameObject.Find(gameobjects.BIG_APPLE).SetActive(false);
         }
 

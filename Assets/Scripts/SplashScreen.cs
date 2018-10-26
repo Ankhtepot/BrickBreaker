@@ -19,7 +19,7 @@ public class SplashScreen : MonoBehaviour {
     void triggerNextLevel() {
         SceneLoader SL = FindObjectOfType<SceneLoader>();
         Options options = FindObjectOfType<Options>();
-        if (options && options.showHintBoards) {
+        if (options && options.ShowHintBoards) {
             ActivateRandomMessageBoard(); 
         }
         if (SL) SceneManager.LoadScene(SL.SceneToBeLoaded);

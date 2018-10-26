@@ -22,6 +22,7 @@ public class GameSession : MonoBehaviour {
     [SerializeField] bool checkForBricks = true;
     //[SerializeField] float SplashScreenShowUpDuration = 2f;
     private TextMeshProUGUI LivesText;
+    private TextMeshProUGUI ScoreText;
     private GameObject canvas;
     //[SerializeField] float xMinKe;
     [Header("BallShakerProps")]
@@ -56,8 +57,8 @@ public class GameSession : MonoBehaviour {
     }
 
     private void SetCaches() {
-        GameObject goLiveText = GameObject.Find(gameobjects.LIVESTEXT);
-        LivesText = goLiveText.GetComponent<TextMeshProUGUI>();
+        LivesText = GameObject.Find(gameobjects.LIVESTEXT).GetComponent<TextMeshProUGUI>();
+        ScoreText = GameObject.Find(gameobjects.LIVESTEXT).GetComponent<TextMeshProUGUI>();
         canvas = GameObject.Find(gameobjects.GAME_CANVAS);
         SceneManager.sceneLoaded += OnSceneLoadGameSession;
         options = FindObjectOfType<Options>();
@@ -74,16 +75,18 @@ public class GameSession : MonoBehaviour {
     }
 
     private void ScreenShake() {
-
         if (Input.GetButtonDown(triggers.JUMP)) {
             //print("Jump button pressed");
             Animator shakeAnimation = FindObjectOfType<Camera>().GetComponent<Animator>();
             if (shakeAnimation) {
                 shakeAnimation.SetTrigger(triggers.SHAKECAMERA);
-                foreach (Ball ball in FindObjectsOfType<Ball>()) {
-                    ball.GetComponent<Rigidbody2D>().velocity +=
-                        new Vector2(UnityEngine.Random.Range(xMin, xMax),
+                Vector2 shakeVector = new Vector2(UnityEngine.Random.Range(xMin, xMax),
                         UnityEngine.Random.Range(yMin, yMax));
+                foreach (Ball ball in FindObjectsOfType<Ball>()) {
+                    ball.GetComponent<Rigidbody2D>().velocity += shakeVector;
+                }
+                foreach (PhysicalBall ball in FindObjectsOfType<PhysicalBall>()) {
+                    ball.GetComponent<Rigidbody2D>().velocity += shakeVector;
                 }
             }
         }
@@ -180,7 +183,7 @@ public class GameSession : MonoBehaviour {
     IEnumerator DelayGameplay() {
         //Debug.Log("GameSession/DelayGameplay: start");
         inputIsEnabled = false;
-        float waitTime = options.showHintBoards ? sceneLoader.SplashScreenDelay : 0f;
+        float waitTime = options.ShowHintBoards ? sceneLoader.SplashScreenDelay : 0f;
         //Debug.Log("GameSession/DelayGameplay: waitTime: " + (waitTime + sceneLoader.SplScrProlongOffset));
         yield return new WaitForSeconds(waitTime + sceneLoader.SplScrProlongOffset);
         inputIsEnabled = true;
@@ -191,10 +194,16 @@ public class GameSession : MonoBehaviour {
             FindObjectOfType<Ball>().lockToPaddle();
         }
         inputIsEnabled = !isLocked;
-        print("Movement is Enabled = " + inputIsEnabled);
+        //print("Movement is Enabled = " + inputIsEnabled);
     }
 
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnSceneLoadGameSession;
+    }
+
+    public void AddScore(int brickHPMultiplier) {
+        if (options) {
+            options.Score += options.baseForScore * brickHPMultiplier * options.LivesCurrent; 
+        }
     }
 }
