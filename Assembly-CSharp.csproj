@@ -72,6 +72,8 @@
     <Compile Include="Assets\Interfaces\IBossAttack.cs" />
     <Compile Include="Assets\Interfaces\IBrickPlayList.cs" />
     <Compile Include="Assets\Interfaces\ITriggerable.cs" />
+    <Compile Include="Assets\ScoreBar.cs" />
+    <Compile Include="Assets\ScoreList.cs" />
     <Compile Include="Assets\Scripts\AnimationAdapter.cs" />
     <Compile Include="Assets\Scripts\Apple.cs" />
     <Compile Include="Assets\Scripts\Ball.cs" />

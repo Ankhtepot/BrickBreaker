@@ -18,6 +18,7 @@ namespace Assets.Scripts {
         [SerializeField] int DamageByBall = 1;
         [SerializeField] int DamageByFireball = 5;
         [SerializeField] float DelayHBarDisable = 0.5f;
+        [SerializeField] int killScore = 20;
         [Header("3. Chaches")]
         [SerializeField] BossAttackManager attackManager;
         [SerializeField] AudioClip SFXArriveSound;
@@ -162,6 +163,7 @@ namespace Assets.Scripts {
         public override void OnCollisionEnter2D(Collision2D collision) {
             String collisionTag = collision.gameObject.tag;
             MrBAnimator.SetTrigger(triggers.HIT);
+            gameSession.AddScore(1);
             HealthChange(collisionTag);
         }
 
@@ -190,6 +192,7 @@ namespace Assets.Scripts {
 
         public override void OnDeath() {
             print("Boss died");
+            gameSession.AddScore(killScore);
             StartCoroutine(AfterDeathSequence());
         }
 

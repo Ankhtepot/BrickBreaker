@@ -12,7 +12,7 @@ public class Brick : MonoBehaviour, IPlayList {
     [SerializeField] ParticleSystem destroyEffect;
 
     //status
-    GameSession currentLevel;
+    GameSession gameSession;
     SpriteRenderer spriteRenderer;
     PickupManager pickupManager;
 //TODO: add gamesession
@@ -20,10 +20,15 @@ public class Brick : MonoBehaviour, IPlayList {
 
     // Use this for initialization
     void Start() {
+        AssignCaches();
+        hitPoints = damageSprites.Length;
+    }
+
+    private void AssignCaches() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         pickupManager = FindObjectOfType<PickupManager>();
+        gameSession = FindObjectOfType<GameSession>();
         particleSystem = destroyEffect.main;
-        hitPoints = damageSprites.Length;
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -64,8 +69,15 @@ public class Brick : MonoBehaviour, IPlayList {
     public void destroyBrick() {
         pickupManager.ProcessPickupChanceOfSpawning(transform.position);
         particleSystem.startColor = spriteRenderer.color;
+        addScore();
         Instantiate(destroyEffect, gameObject.transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    private void addScore() {
+        if (gameSession) {
+            gameSession.AddScore(damageSprites.Length+1);
+        } else if (!gameSession) print("Brick/addScore: no gameSession Found");
     }
 
     public SoundSystem.PlayListID GetPlayListID() {

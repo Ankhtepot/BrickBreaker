@@ -1407,7 +1407,7 @@ MonoBehaviour:
   - {fileID: 1183026422804692, guid: 133580b69d5f94b4382f5cc349b48cda, type: 2}
   - {fileID: 1183026422804692, guid: 906f6384f5dc29d4b9620874ee391fc2, type: 2}
   PickupDropChance: 40
-  dropCD: 10
+  dropCD: 5
   dropOffCD: 1
   GlueDuration: 15
   LaserDuration: 10

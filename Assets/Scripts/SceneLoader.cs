@@ -146,6 +146,7 @@ public class SceneLoader : MonoBehaviour {
                 case -1: case 0: case 1: targetLevel = intconstants.FIRSTLEVEL; break;
                 case intconstants.MRBRICKWORM:
                     targetLevel = sceneIndexFromName(scenes.MRBRICKWORMLEVEL); break;
+                default: targetLevel = options.HighestLevel; break;
             }
         } else if (!options) print("SceneLoader/ContinueButtonClick: missing options");
         LoadScene(targetLevel);

@@ -99,7 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 0
-  damageSprites: []
+  damageSprites:
+  - {fileID: 21300000, guid: b085e9b9b3d38d24284a28b800dbc046, type: 3}
+  - {fileID: 21300000, guid: 9ea6c30dd4c586240aeb7c04da243563, type: 3}
   destroyEffect: {fileID: 198341228361503430, guid: bb288814337595d4a80f8a1ae9802daa,
     type: 2}
 --- !u!212 &212027786765005878

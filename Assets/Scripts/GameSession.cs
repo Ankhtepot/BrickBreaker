@@ -46,19 +46,20 @@ public class GameSession : MonoBehaviour {
         if (!sceneLoader.isCurrentSceneLevel()) {
             if (canvas) canvas.SetActive(false);
         }
-        UpdateLivesText();
         if (options && sceneLoader.isCurrentSceneLevel()) {
             Lives = options.LivesCurrent;
             options.HighestLevel = SceneManager.GetActiveScene().buildIndex;
-        } else if(!options) print("GameSession/Start: missing options");
-        if (LivesText) UpdateLivesText();
-        else print("GameSession/Start: missing LiveText");
-        StartCoroutine(DelayGameplay());
+            if (LivesText) UpdateLivesText();
+            else if(!LivesText)print("GameSession/InicializeLevel: missing LiveText");
+            if (ScoreText) UpdateScoreText();
+            else if(!ScoreText) print("GameSession/InicializeLevel: missing ScoreText");
+            StartCoroutine(DelayGameplay());
+        } else if (!options) print("GameSession/InicializeLevel: missing options");
     }
 
     private void SetCaches() {
         LivesText = GameObject.Find(gameobjects.LIVESTEXT).GetComponent<TextMeshProUGUI>();
-        ScoreText = GameObject.Find(gameobjects.LIVESTEXT).GetComponent<TextMeshProUGUI>();
+        ScoreText = GameObject.Find(gameobjects.SCORETEXT).GetComponent<TextMeshProUGUI>();
         canvas = GameObject.Find(gameobjects.GAME_CANVAS);
         SceneManager.sceneLoaded += OnSceneLoadGameSession;
         options = FindObjectOfType<Options>();
@@ -120,7 +121,7 @@ public class GameSession : MonoBehaviour {
             if (boss != null) {
                 isBossSessionInProgress = true;
                 boss.StartEncounter();
-                options.HighestLevel = intconstants.MRBRICKWORM; 
+                options.HighestLevel = intconstants.MRBRICKWORM;
             } else {
                 NextLevel();
             }
@@ -166,8 +167,15 @@ public class GameSession : MonoBehaviour {
         //Debug.Log("GameSession: RetractLife: afterRetract, Lives = " + Lives);
     }
 
-    public void UpdateLivesText() {
+    private void UpdateLivesText() {
         if (LivesText) LivesText.text = Lives.ToString();
+    }
+
+    private void UpdateScoreText() {
+        if (ScoreText) {
+            //print("Updating Score Text with value: " + options.Score);
+            ScoreText.text = options.Score.ToString();
+        }
     }
 
     private void OnSceneLoadGameSession(Scene loadedScene, LoadSceneMode mode) {
@@ -176,7 +184,7 @@ public class GameSession : MonoBehaviour {
             StartCoroutine(DelayGameplay());
         } else print("GameSession/DelayGameplay: options not found");
         if (sceneLoader.isCurrentSceneLevel()) {
-            if (canvas) canvas.SetActive(false); 
+            if (canvas) canvas.SetActive(false);
         }
     }
 
@@ -203,7 +211,10 @@ public class GameSession : MonoBehaviour {
 
     public void AddScore(int brickHPMultiplier) {
         if (options) {
-            options.Score += options.baseForScore * brickHPMultiplier * options.LivesCurrent; 
-        }
+            int addedScore = options.baseForScore * brickHPMultiplier * Mathf.Max(options.LivesCurrent,1);
+            //print("In add score. Adding: bfs: " + options.baseForScore + " bHPm: " + brickHPMultiplier + "LC: " + options.LivesCurrent + " total: " + addedScore);
+            options.AddScore(addedScore);
+            UpdateScoreText();
+        } else if (!options) print("GameSession/AddScore: no Options found");
     }
 }
