@@ -46,7 +46,7 @@ public class SceneLoader : MonoBehaviour {
     }
 
     void FetchLevel(int sceneToBeLoaded) {
-        //Debug.Log("Loading Screen index: " + (sceneToBeLoaded));
+        Debug.Log("SceneLoader/FetchLevel: Loading Screen index: " + (sceneToBeLoaded));
         SceneToBeLoaded = sceneToBeLoaded;
         if (splashScreen) {
             splashScreen.SetTrigger(triggers.SHOW_UP);
@@ -125,13 +125,15 @@ public class SceneLoader : MonoBehaviour {
             TextMeshProUGUI targetText =
                 GameObject.Find(gameobjects.TARGET_TEXT).GetComponentInChildren<TextMeshProUGUI>();
             if (options && targetText) {
+                print("options.highestLevel: " + options.HighestLevel);
                 String levelToGoTo = "Level ";
                 switch (options.HighestLevel) {
                     case -1: case 0: case 1:
                         levelToGoTo += sceneIndexFromName(scenes.FIRST_LEVEL).ToString(); break;
                     case intconstants.MRBRICKWORM: levelToGoTo = scenes.MRBRICKWORM; break;
                     default: levelToGoTo += options.HighestLevel.ToString(); break;
-                }
+                } if (!options) print("SceneLoader/ManageContinueButtonText: missing options");
+                print("SceneLoader/MCBT: targetText: " + levelToGoTo);
                 targetText.text = levelToGoTo;
             } 
         }

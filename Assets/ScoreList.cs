@@ -21,8 +21,8 @@ public class ScoreList : MonoBehaviour {
         for (int i = 0; i < scoreBars.Length; i++) {
             if (i < scoreRecords.Count) {
                 if (scoreBars[i].dateText) scoreBars[i].dateText.text = buildDate(scoreRecords[i]);
-                if (scoreBars[i].scoreText) scoreBars[i].scoreText.text = scoreRecords[i].Score.ToString();
-                if (scoreBars[i].levelText) scoreBars[i].levelText.text = "Level " + scoreRecords[i].HighestLevel;
+                if (scoreBars[i].scoreText) scoreBars[i].scoreText.text = scoreRecords[i].Score.ToString() + " pts";
+                if (scoreBars[i].levelText) scoreBars[i].levelText.text = "Lvl. " + scoreRecords[i].HighestLevel;
             } else scoreBars[i].gameObject.SetActive(false);
         }
     }
@@ -39,6 +39,14 @@ public class ScoreList : MonoBehaviour {
         scoreBars = GetComponentsInChildren<ScoreBar>();
         if (options) scoreRecords = options.GetScoreItems();
         else if (!options) print("ScoreList/inicializeData: missing Options");
+    }
+
+    public void ExpandScores() {
+        GetComponent<Animator>().SetBool(triggers.SHOW_UP, true);
+    }
+
+    public void CollapseScores() {
+        GetComponent<Animator>().SetBool(triggers.SHOW_UP, false);
     }
 
 }

@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Start Screen.unity
     guid: b9c9ef194fadae445abe0a8e02a575f5
   - enabled: 1
-    path: Assets/Scenes/L1  Med 1.unity
+    path: Assets/Scenes/L1 Med 1.unity
     guid: b00100b688045f2438274604576b9290
   - enabled: 1
     path: Assets/Scenes/L2 Med 2.unity
@@ -30,15 +30,15 @@ EditorBuildSettings:
     path: Assets/Scenes/L7 Apple 1.unity
     guid: 1f2e38ecaecc32d4c868818dd0b88a17
   - enabled: 1
-    path: Assets/Scenes/L7 Apple 2 boss.unity
+    path: Assets/Scenes/L8 Apple 2 boss.unity
     guid: 698c85c604aaa21439027fd03b102228
   - enabled: 1
     path: Assets/Scenes/Win Screen.unity
     guid: fd1cd3489221cb84799c4355dfc2f623
   - enabled: 1
-    path: Assets/Scenes/Game Over.unity
-    guid: 42a85c10021f13c48a5d594b0f37c1d2
-  - enabled: 1
     path: Assets/Scenes/Credits Scene.unity
     guid: 3a8650e4198efd9409e6de306bdfa443
+  - enabled: 1
+    path: Assets/Scenes/Game Over.unity
+    guid: 42a85c10021f13c48a5d594b0f37c1d2
   m_configObjects: {}

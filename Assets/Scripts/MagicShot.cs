@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Classes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,15 +14,15 @@ public class MagicShot : MonoBehaviour {
 	}
 
     private void onCollisionEnter2D(Collision2D collision) {
-        if (impactEffect) {
-            Instantiate(impactEffect, transform.position, Quaternion.identity);
-        } else if (!impactEffect) print("MagicShot/onCollisionEnter2D: no imapctEffect assigned");
+        if (impactEffect && collision.gameObject.tag != tags.WALL) {
+             Instantiate(impactEffect, transform.position, Quaternion.identity);
+        } //else if (!impactEffect) print("MagicShot/onCollisionEnter2D: no imapctEffect assigned");
         DestroyThis();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        //print("MagicShot met trigger");
-        if (impactEffect) {
+        if (impactEffect && collision.gameObject.tag != tags.WALL) {
+            //print("MagicShot met trigger: " + collision.tag);
             Instantiate(impactEffect, collision.transform.position, Quaternion.identity);
         } //else if (!impactEffect) print("MagicShot/onTriggerEnter2D: no imapctEffect assigned");
         DestroyThis();

@@ -51,15 +51,12 @@ namespace Assets.Scripts {
             attackPhase = false;
             isAlive = false;
             MrBAnimator.SetTrigger(triggers.DYING);
-            print("Dying: before coroutine");
             StartCoroutine(OnDying());
             SFXPlayer.PlayClipOnce(SFXDyingSound);
         }
 
         IEnumerator OnDying() {
-            print("OnDying starts");
             yield return new WaitForSeconds(5f);
-            print("OnDying completed");
             OnDeath();
         }
 
@@ -137,6 +134,8 @@ namespace Assets.Scripts {
 
         IEnumerator Arrive() {
             gameSession.LockBallAndPaddle(true);
+            GameObject.Find(gameobjects.EXPLAMATION_LEFT).GetComponent<Animator>().SetBool(triggers.FEAR, true);
+            GameObject.Find(gameobjects.EXPLAMATION_RIGHT).GetComponent<Animator>().SetBool(triggers.FEAR, true);
             yield return new WaitForSeconds(0.5f);
             SFXPlayer.PlayClipOnce(SFXSpellSound);
             MrBAnimator.SetTrigger(triggers.START);
@@ -146,6 +145,8 @@ namespace Assets.Scripts {
             yield return new WaitForSeconds(1.5f);
             arrived = true;
             gameSession.LockBallAndPaddle(false);
+            GameObject.Find(gameobjects.EXPLAMATION_LEFT).GetComponent<Animator>().SetBool(triggers.FEAR, false);
+            GameObject.Find(gameobjects.EXPLAMATION_RIGHT).GetComponent<Animator>().SetBool(triggers.FEAR, false);
         }
 
         public void PlayGrowl() {
@@ -191,7 +192,6 @@ namespace Assets.Scripts {
         }
 
         public override void OnDeath() {
-            print("Boss died");
             gameSession.AddScore(killScore);
             StartCoroutine(AfterDeathSequence());
         }

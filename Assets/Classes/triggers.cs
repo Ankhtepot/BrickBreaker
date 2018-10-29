@@ -12,6 +12,7 @@ namespace Assets.Classes {
         public const String DISMISS = "Dismiss";
         public const String DYING = "Die";
         public const String FADE = "Fade";
+        public const String FEAR = "Fear";
         public const String HIT = "Hit";
         public const String JUMP = "Jump";
         public const String LEGWIGGLESPEED = "LegWiggleSpeed";
